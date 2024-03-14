@@ -1,0 +1,10 @@
+### GET ehhlo
+GET http://localhost:8080/hello
+Accept: */*
+Content-Type: */*
+
+
+### GET Vehicle listAll
+GET http://localhost:8080/vehicle
+Accept: */*
+Content-Type: application/json

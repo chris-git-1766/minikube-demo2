@@ -1,0 +1,24 @@
+# Quarkus Application Server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appsrv
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appsrv
+  template:
+    metadata:
+      labels:
+        app: appsrv
+    spec:
+      containers:
+        - name: appsrv
+          image: ghcr.io/chris-git-1766/minikube-demo-vk:latest
+          # remove this when stable. Currently, we do not take care of version numbers
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          # command: ["tail", "-f", "/dev/null"]
