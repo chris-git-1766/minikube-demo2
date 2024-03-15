@@ -1,8 +1,10 @@
-name: GitHub Actions Demo Kohlweg
-run-name: ${{ github.actor }} is testing out GitHub Actions🚀
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  build_executable:
+    permissions:
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Container Registry
@@ -11,5 +13,17 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check out repository name
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+      - name: Build with Maven
+        run: | ## mehrere Zeilen
+          echo "---------------BUILD PROCESS ---------"
+          mvn -B -DskipTests package
+          cp src/main/docker/Dockerfile target
+          docker build --tag ghcr.io/${{github.actor}}/backend:latest ./target/
+          docker push ghcr.io/${{github.actor}}/backend:latest
+          ls -lh target
