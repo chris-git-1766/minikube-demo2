@@ -22,3 +22,16 @@ spec:
           ports:
             - containerPort: 8080
           # command: ["tail", "-f", "/dev/null"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appsrv
+
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    component: appsrv

@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kohl
+spec:
+  #  entryPoints:
+  #    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`kohl.cloud.key.fit`)
+      services:
+        - name: echoserver
+          port: 80
+#  tls:
+#    secretName: default-ingress-cert
