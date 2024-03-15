@@ -11,3 +11,5 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check out repository name
+        uses: actions/checkout@v4
